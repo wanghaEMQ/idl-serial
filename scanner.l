@@ -9,9 +9,7 @@
 %option noyywrap
 
 /* Ignored */
-CComments               ("/*"([^*]|\*+[^*/])*\*+"/")
-ROS2Comments            (("@")([^)])*(")"))
-Comment                 (("//")[^\n]*)|{CComments}|{ROS2Comments}
+Comment                 (("//")[^\n]*)|("/*".*"*/")
 WhiteSpace              ([ \t\r\n]+)
 Ignored                 {WhiteSpace}|{Comment}
 
