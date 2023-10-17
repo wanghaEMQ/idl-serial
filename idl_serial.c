@@ -19,6 +19,7 @@ static char g_num[] = "NUMBER";
 static char g_arr[] = "ARRAY";
 static char g_enu[] = "ENUM";
 static char g_str[] = "STRING";
+static char g_mod[] = "MODULE_NS_";
 
 static FILE *g_fp = NULL; // Source file pointer
 static FILE *g_hfp = NULL; // Header file pointer
@@ -682,6 +683,7 @@ int idl_struct_to_json(cJSON *jso)
 	cJSON *ele = NULL;
 	cJSON *e = NULL;
 
+bypass_module:
 	cJSON_ArrayForEach(arr, arrs)
 	{
 		cJSON_ArrayForEach(eles, arr)
@@ -692,6 +694,12 @@ int idl_struct_to_json(cJSON *jso)
 			if (0 == strncmp(str, g_enu, strlen(g_enu)))
 			{
 				fprintf(g_fp, ser_num_func, vstr, vstr);
+			}
+			else if (0 == strncmp(str, g_mod, strlen(g_mod)))
+			{
+				arrs = eles;
+				log_info("bypass module %s", str+strlen(g_mod));
+				goto bypass_module;
 			}
 			else
 			{
