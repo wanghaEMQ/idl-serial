@@ -104,13 +104,13 @@ value:  STRUCT VARIABLE LCURLY members RCURLY SEMIC
                 cvector_push_back(keylist_vec, $2);
                 $$ = NULL;
         }
-        | MODULE variables LCURLY values RCURLY SEMIC
+        | MODULE VARIABLE LCURLY values RCURLY SEMIC
         {
                 log_info("MODULE variables LCURLY values RCURLY");
                 $$ = cJSON_CreateObject();
                 cJSON_AddItemToObject($$, $2, $4);
         }
-        | MODULE variables LCURLY members RCURLY SEMIC
+        | MODULE VARIABLE LCURLY members RCURLY SEMIC
         {
                 log_info("MODULE variables LCURLY members RCURLY");
                 $$ = cJSON_CreateObject();
