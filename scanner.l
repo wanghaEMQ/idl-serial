@@ -45,6 +45,9 @@ String                  string
 /* Sequence type */
 Sequence                sequence
 
+/* ROS2 Module keyword */
+Module                  module
+
 /* Enum && struct type */
 Enum                    enum
 Struct                  struct
@@ -94,6 +97,7 @@ Macro                   #define{WhiteSpace}([A-Za-z_][A-Za-z0-9_]*){WhiteSpace}(
 {Semic}                 { debug("Semic type: %s", yytext); return SEMIC; }
 {Enum}                  { debug("Enum type: %s", yytext); return ENUM; }
 {Struct}                { debug("Struct type: %s", yytext); return STRUCT; }
+{Module}                { debug("Module keyword: %s", yytext); return MODULE; }
 {Integer}               {
                             debug("Integer value: %s", yytext);
                             yylval.intval = atoi(yytext);
