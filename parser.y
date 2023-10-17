@@ -29,7 +29,7 @@ char **keylist_vec = NULL;
 
 
 %token LCURLY RCURLY LBRAC RBRAC LMBRAC RMBRAC COMMA SEMIC
-%token STRING SEQUENCE BOOLEAN ENUM STRUCT PRAGMA_KEYLIST
+%token STRING SEQUENCE BOOLEAN ENUM STRUCT PRAGMA_KEYLIST MODULE
 %token <strval> NUMBER;
 %token <strval> VARIABLE;
 %token <strval> MACRO;
@@ -103,6 +103,18 @@ value:  STRUCT VARIABLE LCURLY members RCURLY SEMIC
                 log_info("PRAGMA_KEYLIST");
                 cvector_push_back(keylist_vec, $2);
                 $$ = NULL;
+        }
+        | MODULE variables LCURLY values RCURLY SEMIC
+        {
+                log_info("MODULE variables LCURLY values RCURLY");
+                $$ = cJSON_CreateObject();
+                cJSON_AddItemToObject($$, $2, $4);
+        }
+        | MODULE variables LCURLY members RCURLY SEMIC
+        {
+                log_info("MODULE variables LCURLY members RCURLY");
+                $$ = cJSON_CreateObject();
+                cJSON_AddItemToObject($$, $2, $4);
         }
         ;
 
