@@ -106,15 +106,19 @@ value:  STRUCT VARIABLE LCURLY members RCURLY SEMIC
         }
         | MODULE VARIABLE LCURLY values RCURLY SEMIC
         {
-                log_info("MODULE variables LCURLY values RCURLY");
+                log_info("MODULE VARIABLE LCURLY values RCURLY");
+                char tmp[64];
+                snprintf(tmp, 64, "MODULE_NS_%s", $2);
                 $$ = cJSON_CreateObject();
-                cJSON_AddItemToObject($$, $2, $4);
+                cJSON_AddItemToObject($$, tmp, $4);
         }
         | MODULE VARIABLE LCURLY members RCURLY SEMIC
         {
-                log_info("MODULE variables LCURLY members RCURLY");
+                log_info("MODULE VARIABLE LCURLY members RCURLY");
+                char tmp[64];
+                snprintf(tmp, 64, "MODULE_NS_%s", $2);
                 $$ = cJSON_CreateObject();
-                cJSON_AddItemToObject($$, $2, $4);
+                cJSON_AddItemToObject($$, tmp, $4);
         }
         ;
 
